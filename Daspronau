@@ -1,0 +1,84 @@
+mahasiswa = {
+    "20240040255": ("Naura Aila", "Teknik Informatika", 3.3),
+    "2024004040216": ("Christian", "Teknik Informatika", 3.2),
+    "20240040254": ("Nayla Khairani","Teknik Informatika",3.35)
+}
+def tambah_mahasiswa():
+    nim = input("Masukkan NIM: ")
+    if nim in mahasiswa:
+        print("Mahasiswa dengan NIM tersebut sudah ada!")
+        return
+    nama = input("Masukkan Nama: ")
+    jurusan = input("Masukkan Jurusan: ")
+    try:
+        ipk = float(input("Masukkan IPK: "))
+    except ValueError:
+        print("IPK harus berupa angka!")
+        return
+    mahasiswa[nim] = (nama, jurusan, ipk)
+    print("Mahasiswa berhasil ditambahkan!")
+def tampilkan_mahasiswa():
+    if not mahasiswa:
+        print("Belum ada data mahasiswa.")
+        return
+    print("\nData Seluruh Mahasiswa:")
+    for nim, data in mahasiswa.items():
+        nama, jurusan, ipk = data
+        print(f"NIM: {nim} | Nama: {nama} | Jurusan: {jurusan} | IPK: {ipk}")
+def cari_mahasiswa():
+    nim = input("Masukkan NIM yang dicari: ")
+    if nim in mahasiswa:
+        nama, jurusan, ipk = mahasiswa[nim]
+        print(f"NIM: {nim} | Nama: {nama} | Jurusan: {jurusan} | IPK: {ipk}")
+    else:
+        print("Mahasiswa tidak ditemukan.")
+
+def update_ipk():
+    nim = input("Masukkan NIM mahasiswa yang ingin diupdate: ")
+    if nim in mahasiswa:
+        try:
+            ipk_baru = float(input("Masukkan IPK baru: "))
+        except ValueError:
+            print("IPK harus berupa angka!")
+            return
+        nama, jurusan, _ = mahasiswa[nim]
+        mahasiswa[nim] = (nama, jurusan, ipk_baru)
+        print("IPK berhasil diperbarui.")
+    else:
+        print("Mahasiswa tidak ditemukan.")
+def hapus_mahasiswa():
+    nim = input("Masukkan NIM mahasiswa yang ingin dihapus: ")
+    if nim in mahasiswa:
+        del mahasiswa[nim]
+        print("Data mahasiswa berhasil dihapus.")
+    else:
+        print("Mahasiswa tidak ditemukan.")
+def menu():
+    while True:
+        print("\n--- Menu ---")
+        print("1. Tambah Mahasiswa")
+        print("2. Tampilkan Seluruh Mahasiswa")
+        print("3. Cari Mahasiswa")
+        print("4. Update IPK Mahasiswa")
+        print("5. Hapus Mahasiswa")
+        print("6. Keluar")
+        pilihan = input("Pilihan Anda: ")
+
+        if pilihan == "1":
+            tambah_mahasiswa()
+        elif pilihan == "2":
+            tampilkan_mahasiswa()
+        elif pilihan == "3":
+            cari_mahasiswa()
+        elif pilihan == "4":
+            update_ipk()
+        elif pilihan == "5":
+            hapus_mahasiswa()
+        elif pilihan == "6":
+            print("Terima kasih! Program selesai.")
+            break
+        else:
+            print("Pilihan tidak valid. Silakan coba lagi.")
+
+
+menu()
